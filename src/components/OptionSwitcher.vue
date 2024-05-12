@@ -1,12 +1,23 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
-const props = defineProps({
-  items: { type: Array<{ name: string }>, required: true },
-  modelView: { type: String, required: true }
+type TItem = {
+  name: string
+}
+
+const props = defineProps<{
+  items: TItem[]
+  modelView: string
+}>()
+
+const internalValue = ref(props.modelView)
+
+const selected = computed({
+  get: () => internalValue.value,
+  set: (newValue) => {
+    internalValue.value = newValue
+  }
 })
-
-const selected = ref(props.modelView)
 </script>
 
 <template>

@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import OptionSwitcher from '@/components/OptionSwitcher.vue'
-import { ref } from 'vue'
 
-const sortByItems = ref([{ name: 'Release date' }, { name: 'Rating' }])
-const sortByDefaultValue = ref('Release date')
+const sortByItems = [{ name: 'Release date' }, { name: 'Rating' }]
+const sortByDefaultValue = 'Release date'
 </script>
 
 <template>

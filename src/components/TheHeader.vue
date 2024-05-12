@@ -19,6 +19,6 @@ header {
   background-size: cover;
 }
 .logo {
-  margin: 20px 0 0 60px;
+  padding: 20px 0 0 60px;
 }
 </style>

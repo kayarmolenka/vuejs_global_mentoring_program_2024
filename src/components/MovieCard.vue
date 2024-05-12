@@ -6,12 +6,9 @@ export interface Movie {
   releaseDate: number
 }
 
-const props = defineProps({
-  movie: {
-    type: Object as () => Movie,
-    required: true
-  }
-})
+const props = defineProps<{
+  movie: Movie
+}>()
 
 const { title, poster, genre, releaseDate } = props.movie
 const imageUrl = new URL(poster, import.meta.url).href

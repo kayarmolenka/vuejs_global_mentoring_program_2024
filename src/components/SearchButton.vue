@@ -1,13 +1,12 @@
-<script lang="ts">
-export default {
-  props: { title: { type: String }, handleClick: { type: Function } },
-  setup() {}
-}
+<script setup lang="ts">
+defineProps<{
+  title: string
+}>()
 </script>
 
 <template>
   <div>
-    <button class="button" @click="handleClick">{{ title }}</button>
+    <button class="button" @click="$emit('search')">{{ title }}</button>
   </div>
 </template>
 

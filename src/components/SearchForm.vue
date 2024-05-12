@@ -2,21 +2,20 @@
 import SearchInput from '@/components/SearchInput.vue'
 import SearchButton from '@/components/SearchButton.vue'
 import OptionSwitcher from '@/components/OptionSwitcher.vue'
-import { ref } from 'vue'
 
 const handleClick = () => {
-  console.log(1)
+  console.log('Search')
 }
-const searchByItems = ref([{ name: 'Title' }, { name: 'Genre' }])
-const searchByDefaultValue = ref('Genre')
+const searchByItems = [{ name: 'Title' }, { name: 'Genre' }]
+const searchByDefaultValue = 'Genre'
 </script>
 
 <template>
   <div>
     <h1>Find your movie</h1>
     <div class="search">
-      <SearchInput placeholder="Search" />
-      <SearchButton title="Click me" :handle-click="handleClick" />
+      <SearchInput placeholder="Search" :handle-click="handleClick" />
+      <SearchButton title="Click me" @search="handleClick" />
     </div>
     <div class="search-by-wrapper">
       <span class="search-by">Search by</span

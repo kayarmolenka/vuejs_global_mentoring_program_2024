@@ -1,14 +1,11 @@
-<script lang="ts">
+<script setup lang="ts">
 import { ref } from 'vue'
 
-export default {
-  props: { placeholderInp: { type: String } },
-  setup(props) {
-    const value = ref('')
+defineProps<{
+  placeholder: string
+}>()
 
-    return { value, placeholder: props.placeholderInp }
-  }
-}
+const value = ref('')
 </script>
 
 <template>

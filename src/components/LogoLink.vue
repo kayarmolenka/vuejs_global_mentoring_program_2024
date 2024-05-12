@@ -1,8 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const scrollToTop = () => {
+  window.scrollTo(0, 0)
+}
+</script>
 
 <template>
   <div class="logo">
-    <a href="/"><strong>netflix</strong>roulette</a>
+    <router-link to="/" @click="scrollToTop"><strong>netflix</strong>roulette</router-link>
   </div>
 </template>
 

@@ -13,6 +13,6 @@ type Story = StoryObj<typeof meta>
 
 export const Basic: Story = {
   args: {
-    placeholderInp: 'Search'
+    placeholder: 'Search'
   }
 }
