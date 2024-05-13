@@ -1,8 +1,8 @@
 <script setup lang="ts">
 export interface Movie {
   title: string
-  poster: string
-  genre: string
+  posterurl: string
+  genres: string[]
   releaseDate: number
 }
 
@@ -10,19 +10,24 @@ const props = defineProps<{
   movie: Movie
 }>()
 
-const { title, poster, genre, releaseDate } = props.movie
-const imageUrl = new URL(poster, import.meta.url).href
+const { title, posterurl, genres, releaseDate } = props.movie
 </script>
 
 <template>
   <div class="movie-card-wrapper">
     <div>
-      <img class="movie-card-image" :src="imageUrl" alt="" />
+      <img
+        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        v-lazyload
+        class="movie-card-image"
+        :data-src="posterurl"
+        alt=""
+      />
     </div>
     <div class="movie-card-info">
       <div>
         <h2 class="movie-card-name">{{ title }}</h2>
-        <h3 class="movie-card-genre">{{ genre }}</h3>
+        <h3 class="movie-card-genre">{{ genres.join(', ') }}</h3>
       </div>
 
       <div>
