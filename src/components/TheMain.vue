@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import MovieCard from '@/components/MovieCard.vue'
-import { date as movies } from '../../mockData/data'
+import { useMovies } from '@/composables/useMovies'
+
+const { execute, data: movies } = useMovies()
+
+execute()
 </script>
 
 <template>
