@@ -38,9 +38,12 @@ export const useMoviesStore = defineStore('movies', () => {
         movie.title.toLowerCase().includes(searchTerm.value.toLowerCase())
       )
     } else if (searchBy.value === 'Genre') {
-      return movies.value?.filter((movie) => movie.genres.includes(searchTerm.value))
+      return movies.value?.filter((movie) =>
+        movie.genres.map((genre) => genre.toLowerCase()).includes(searchTerm.value.toLowerCase())
+      )
+    } else {
+      return []
     }
-    return movies
   })
 
   return {
