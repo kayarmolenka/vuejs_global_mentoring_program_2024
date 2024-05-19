@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios'
 import { ref } from 'vue'
 import type { Movie } from '@/components/MovieCard.vue'
+import { date as mockMovies } from '../../mockData/data'
 
 const URL = 'https://tame-erin-pike-toga.cyclic.app/movies'
 
@@ -19,6 +20,8 @@ export function useMovies() {
           message: e.message,
           stack: e.stack
         }
+
+        data.value = mockMovies
       }
     }
   }

@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import SearchForm from '@/components/SearchForm.vue'
 import LogoLink from '@/components/LogoLink.vue'
 </script>
 
 <template>
   <header>
     <LogoLink />
-    <SearchForm />
+    <router-view />
   </header>
 </template>
 

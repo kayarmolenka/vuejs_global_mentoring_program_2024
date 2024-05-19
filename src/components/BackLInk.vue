@@ -7,7 +7,7 @@ const imageUrl = new URL(props.icon, import.meta.url).href
 </script>
 
 <template>
-  <div @click="$emit('backClick')"><img :src="imageUrl" alt="" /></div>
+  <div class="back-link" @click="$emit('backClick')"><img :src="imageUrl" alt="" /></div>
 </template>
 
 <style scoped>

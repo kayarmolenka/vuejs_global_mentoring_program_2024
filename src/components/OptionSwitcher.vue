@@ -7,15 +7,17 @@ type TItem = {
 
 const props = defineProps<{
   items: TItem[]
-  modelView: string
+  modelValue: string
 }>()
 
-const internalValue = ref(props.modelView)
+const internalValue = ref(props.modelValue)
+const emit = defineEmits(['update:modelValue'])
 
 const selected = computed({
   get: () => internalValue.value,
   set: (newValue) => {
     internalValue.value = newValue
+    emit('update:modelValue', newValue)
   }
 })
 </script>

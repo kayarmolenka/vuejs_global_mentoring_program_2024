@@ -2,24 +2,38 @@
 import SearchInput from '@/components/SearchInput.vue'
 import SearchButton from '@/components/SearchButton.vue'
 import OptionSwitcher from '@/components/OptionSwitcher.vue'
+import { useMoviesStore } from '@/store/movies'
+import { ref } from 'vue'
+const searchByItems = [{ name: 'Title' }, { name: 'Genre' }]
+const store = useMoviesStore()
+const tempSearchTerm = ref('')
+const tempSearchBy = ref('Genre')
 
 const handleClick = () => {
-  console.log('Search')
+  store.setSearchTerm(tempSearchTerm.value)
+  store.setSearchBy(tempSearchBy.value)
 }
-const searchByItems = [{ name: 'Title' }, { name: 'Genre' }]
-const searchByDefaultValue = 'Genre'
 </script>
 
 <template>
   <div>
     <h1>Find your movie</h1>
     <div class="search">
-      <SearchInput placeholder="Search" :handle-click="handleClick" />
+      <SearchInput
+        @enter="handleClick"
+        :value="tempSearchTerm"
+        v-model="tempSearchTerm"
+        placeholder="Search"
+      />
       <SearchButton title="Click me" @search="handleClick" />
     </div>
     <div class="search-by-wrapper">
       <span class="search-by">Search by</span
-      ><OptionSwitcher :items="searchByItems" :model-view="searchByDefaultValue" />
+      ><OptionSwitcher
+        :items="searchByItems"
+        v-model="tempSearchBy"
+        @update:modelValue="store.setSearchBy"
+      />
     </div>
   </div>
 </template>

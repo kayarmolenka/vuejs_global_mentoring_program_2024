@@ -1,40 +1,56 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+
 export interface Movie {
+  id: number
   title: string
   posterurl: string
   genres: string[]
-  releaseDate: number
+  actors: string[]
+  releaseDate: string
+  storyline: string
+  ratings?: number[]
+  movieUrl?: string
+  year: string
+  poster: string
+  contentRating: string
+  duration: string
+  averageRating: number
+  imdbRating: number
 }
 
 const props = defineProps<{
   movie: Movie
 }>()
 
-const { title, posterurl, genres, releaseDate } = props.movie
+const { title, posterurl, genres, releaseDate, id } = props.movie
+const movieParam = computed(() => `/movie/${id}`)
 </script>
 
 <template>
-  <div class="movie-card-wrapper">
-    <div>
-      <img
-        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-        v-lazyload
-        class="movie-card-image"
-        :data-src="posterurl"
-        alt=""
-      />
-    </div>
-    <div class="movie-card-info">
+  <router-link :to="movieParam">
+    <div class="movie-card-wrapper">
       <div>
-        <h2 class="movie-card-name">{{ title }}</h2>
-        <h3 class="movie-card-genre">{{ genres.join(', ') }}</h3>
+        <img
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          v-lazyload
+          class="movie-card-image"
+          :data-src="posterurl"
+          alt=""
+        />
       </div>
+      <div class="movie-card-info">
+        <div>
+          <h2 class="movie-card-name">{{ title }}</h2>
+          <h3 class="movie-card-genre">{{ genres.join(', ') }}</h3>
+        </div>
 
-      <div>
-        <div class="movie-card-year">{{ releaseDate }}</div>
+        <div>
+          <div class="movie-card-year">{{ releaseDate }}</div>
+        </div>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <style scoped>
