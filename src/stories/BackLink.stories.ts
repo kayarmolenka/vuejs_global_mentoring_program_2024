@@ -13,12 +13,14 @@ type Story = StoryObj<typeof meta>
 
 export const Basic: Story = {
   args: {
-    icon: '../assets/images/back.png'
+    icon: '../assets/images/back.png',
+    destination: { name: 'Home' }
   }
 }
 
 export const SearchBackLink: Story = {
   args: {
-    icon: '../assets/images/search.png'
+    icon: '../assets/images/search.png',
+    destination: { name: 'Home' }
   }
 }

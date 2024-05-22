@@ -7,7 +7,7 @@ import { ref } from 'vue'
 const searchByItems = [{ name: 'Title' }, { name: 'Genre' }]
 const store = useMoviesStore()
 const tempSearchTerm = ref('')
-const tempSearchBy = ref('Genre')
+const tempSearchBy = ref('Title')
 
 const handleClick = () => {
   store.setSearchTerm(tempSearchTerm.value)

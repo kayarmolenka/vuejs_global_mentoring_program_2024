@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import MovieCard from '@/components/MovieCard.vue'
+import { useMovies } from '@/composables/useMovies'
 import { useMoviesStore } from '@/store/movies'
 
+const { moviesByGenre } = useMovies()
 const store = useMoviesStore()
-store.fetchMovies()
 </script>
 
 <template>
   <main v-if="!store.loading">
-    <div v-if="store.filteredMovies?.length">
-      <MovieCard v-for="movie in store.filteredMovies" :movie="movie" :key="movie.title" />
+    <div v-if="moviesByGenre?.length">
+      <MovieCard v-for="movie in moviesByGenre" :movie="movie" :key="movie.title" />
     </div>
     <div class="not_found" v-else>No films found</div>
   </main>

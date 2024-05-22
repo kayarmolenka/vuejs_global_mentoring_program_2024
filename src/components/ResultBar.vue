@@ -2,17 +2,22 @@
 import OptionSwitcher from '@/components/OptionSwitcher.vue'
 import { useMoviesStore } from '@/store/movies'
 
+const props = defineProps<{ countMoviesFound?: number }>()
+
 const sortByItems = [{ name: 'Release date' }, { name: 'Rating' }]
-const sortByDefaultValue = 'Release date'
 const store = useMoviesStore()
 </script>
 
 <template>
   <div class="result-bar">
-    <div class="movie-count">{{ store.countMoviesFound }} movie found</div>
+    <div class="movie-count">{{ props.countMoviesFound }} movie found</div>
     <div class="sort-by-wrapper">
       <span class="sort-by">Sort by</span
-      ><OptionSwitcher :items="sortByItems" v-model="sortByDefaultValue" />
+      ><OptionSwitcher
+        :items="sortByItems"
+        :modelValue="store.sortBy"
+        @update:modelValue="store.setSortBy"
+      />
     </div>
   </div>
 </template>

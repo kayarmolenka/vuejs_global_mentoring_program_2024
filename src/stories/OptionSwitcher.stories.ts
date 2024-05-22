@@ -14,13 +14,13 @@ type Story = StoryObj<typeof meta>
 export const SearchBy: Story = {
   args: {
     items: [{ name: 'Title' }, { name: 'Genre' }],
-    modelView: 'Title'
+    modelValue: 'Title'
   }
 }
 
 export const SortBy: Story = {
   args: {
     items: [{ name: 'Release date' }, { name: 'Rating' }],
-    modelView: 'Release date'
+    modelValue: 'Release date'
   }
 }

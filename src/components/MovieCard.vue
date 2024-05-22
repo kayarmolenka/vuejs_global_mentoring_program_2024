@@ -19,9 +19,13 @@ export interface Movie {
   imdbRating: number
 }
 
-const props = defineProps<{
-  movie: Movie
-}>()
+const props = withDefaults(
+  defineProps<{
+    movie: Movie
+    lazy?: boolean
+  }>(),
+  { lazy: true }
+)
 
 const { title, posterurl, genres, releaseDate, id } = props.movie
 const movieParam = computed(() => `/movie/${id}`)
@@ -32,12 +36,14 @@ const movieParam = computed(() => `/movie/${id}`)
     <div class="movie-card-wrapper">
       <div>
         <img
+          v-if="props.lazy"
           src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
           v-lazyload
           class="movie-card-image"
           :data-src="posterurl"
           alt=""
         />
+        <img v-else :src="posterurl" class="movie-card-image" alt="" />
       </div>
       <div class="movie-card-info">
         <div>

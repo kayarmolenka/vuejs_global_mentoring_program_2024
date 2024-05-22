@@ -4,36 +4,42 @@ import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import type { Movie } from '@/components/MovieCard.vue'
 import BackLInk from '@/components/BackLInk.vue'
+import { useRoute } from 'vue-router'
 
-const props = defineProps<{ id: string }>()
+const route = useRoute()
 const store = useMoviesStore()
 const movie = ref<Movie | null | undefined>(null)
 const src = ref()
-const { push } = useRouter()
 
 watch(
-  () => props.id,
+  () => route.params.id,
   async (newId) => {
-    await store.fetchMovies()
     movie.value = store.getMovieById(Number(newId))
     src.value = new URL(movie.value?.posterurl!, import.meta.url).href
+    store.setChosenMovieGenre(movie.value?.genres ?? [])
   },
   { immediate: true }
 )
 
+const { push } = useRouter()
 const backClick = () => {
-  push('/search')
+  push('/')
 }
-
-console.log('movie', movie)
 </script>
 
 <template>
   <div v-if="movie" class="movie-card-details">
-    <BackLInk @backClick="backClick" icon="../assets/images/search.png" />
+    <BackLInk
+      :destination="{ name: 'Home' }"
+      @backClick="backClick"
+      icon="../assets/images/search.png"
+    />
     <div><img :src="src" alt="" /></div>
     <div>
-      <div class="title">{{ movie.title }}</div>
+      <div class="title-rating-wrapper">
+        <div class="title">{{ movie.title }}</div>
+        <div class="rating">{{ movie.imdbRating }}</div>
+      </div>
       <div class="genre">{{ movie.genres.join(', ') }}</div>
       <div class="release-runtime-block">
         <div>{{ movie.releaseDate.slice(0, 4) }}</div>
@@ -56,6 +62,10 @@ img {
   width: 255px;
   height: 312px;
 }
+.title-rating-wrapper {
+  display: flex;
+  gap: 16px;
+}
 .title {
   font-family: 'Montserrat', serif;
   font-style: normal;
@@ -65,6 +75,17 @@ img {
   letter-spacing: 1px;
   text-transform: uppercase;
   color: #ffffff;
+}
+.rating {
+  font-family: 'Montserrat', serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 24px;
+  color: #a1e66f;
+  border-radius: 50%;
+  border: 1px solid #ffffff;
+  padding: 11px 10px;
 }
 .genre {
   font-family: 'Montserrat', serif;

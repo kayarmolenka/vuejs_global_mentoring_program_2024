@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import LogoLink from '@/components/LogoLink.vue'
+import MovieCardDetails from '@/components/MovieCardDetails.vue'
 </script>
 
 <template>
   <header>
     <LogoLink />
-    <router-view />
+    <MovieCardDetails />
   </header>
 </template>
 
