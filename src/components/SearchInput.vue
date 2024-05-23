@@ -1,15 +1,29 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+const props = defineProps({
+  modelValue: String,
+  placeholder: String
+})
 
-defineProps<{
-  placeholder: string
-}>()
+const emit = defineEmits(['update:modelValue', 'enter'])
 
-const value = ref('')
+const updateValue = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  emit('update:modelValue', target.value)
+}
+
+const handleEnter = () => {
+  emit('enter')
+}
 </script>
 
 <template>
-  <input class="search" v-model="value" :placeholder="placeholder" />
+  <input
+    class="search"
+    @keyup.enter="handleEnter"
+    :value="props.modelValue"
+    @input="updateValue"
+    :placeholder="placeholder"
+  />
 </template>
 
 <style scoped>

@@ -1,35 +1,62 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+
 export interface Movie {
+  id: number
   title: string
+  posterurl: string
+  genres: string[]
+  actors: string[]
+  releaseDate: string
+  storyline: string
+  ratings?: number[]
+  movieUrl?: string
+  year: string
   poster: string
-  genre: string
-  releaseDate: number
+  contentRating: string
+  duration: string
+  averageRating: number
+  imdbRating: number
 }
 
-const props = defineProps<{
-  movie: Movie
-}>()
+const props = withDefaults(
+  defineProps<{
+    movie: Movie
+    lazy?: boolean
+  }>(),
+  { lazy: true }
+)
 
-const { title, poster, genre, releaseDate } = props.movie
-const imageUrl = new URL(poster, import.meta.url).href
+const { title, posterurl, genres, releaseDate, id } = props.movie
+const movieParam = computed(() => `/movie/${id}`)
 </script>
 
 <template>
-  <div class="movie-card-wrapper">
-    <div>
-      <img class="movie-card-image" :src="imageUrl" alt="" />
-    </div>
-    <div class="movie-card-info">
+  <router-link :to="movieParam">
+    <div class="movie-card-wrapper">
       <div>
-        <h2 class="movie-card-name">{{ title }}</h2>
-        <h3 class="movie-card-genre">{{ genre }}</h3>
+        <img
+          v-if="props.lazy"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          v-lazyload
+          class="movie-card-image"
+          :data-src="posterurl"
+          alt=""
+        />
+        <img v-else :src="posterurl" class="movie-card-image" alt="" />
       </div>
+      <div class="movie-card-info">
+        <div>
+          <h2 class="movie-card-name">{{ title }}</h2>
+          <h3 class="movie-card-genre">{{ genres.join(', ') }}</h3>
+        </div>
 
-      <div>
-        <div class="movie-card-year">{{ releaseDate }}</div>
+        <div>
+          <div class="movie-card-year">{{ releaseDate }}</div>
+        </div>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <style scoped>

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { fn } from '@storybook/test'
 import SearchButton from '@/components/SearchButton.vue'
 
 const meta = {
@@ -13,7 +12,6 @@ type Story = StoryObj<typeof meta>
 
 export const Basic: Story = {
   args: {
-    title: 'Search',
-    onClick: fn()
+    title: 'Search'
   }
 }

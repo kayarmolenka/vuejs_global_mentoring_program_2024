@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import SearchForm from '@/components/SearchForm.vue'
 import LogoLink from '@/components/LogoLink.vue'
+import MovieCardDetails from '@/components/MovieCardDetails.vue'
 </script>
 
 <template>
   <header>
     <LogoLink />
-    <SearchForm />
+    <MovieCardDetails />
   </header>
 </template>
 
