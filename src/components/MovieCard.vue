@@ -33,7 +33,7 @@ const movieParam = computed(() => `/movie/${id}`)
 
 <template>
   <router-link :to="movieParam">
-    <div class="movie-card-wrapper">
+    <div data-testid="movie-card" class="movie-card-wrapper">
       <div>
         <img
           v-if="props.lazy"
