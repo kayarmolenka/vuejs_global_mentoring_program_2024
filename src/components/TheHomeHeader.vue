@@ -4,7 +4,7 @@ import SearchForm from '@/components/SearchForm.vue'
 </script>
 
 <template>
-  <header>
+  <header data-testid="home-header">
     <LogoLink />
     <SearchForm />
   </header>

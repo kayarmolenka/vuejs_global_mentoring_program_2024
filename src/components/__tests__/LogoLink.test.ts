@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import LogoLink from '../LogoLink.vue'

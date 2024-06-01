@@ -1,6 +1,15 @@
 import { describe, it, expect } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { mount, VueWrapper } from '@vue/test-utils'
 import OptionSwitcher from '../OptionSwitcher.vue'
+import type { ComponentPublicInstance } from 'vue'
+
+type OptionSwitcherProps = {
+  items: { name: string }[]
+  modelValue: string
+  'onUpdate:modelValue'?: (e: any) => void
+}
+
+type OptionSwitcherInstance = ComponentPublicInstance<OptionSwitcherProps>
 
 describe('OptionSwitcher', () => {
   it('should render passed props such as Comedy/Drama', () => {
@@ -10,11 +19,11 @@ describe('OptionSwitcher', () => {
 
     expect(wrapper.text()).toContain('Comedy')
     expect(wrapper.text()).toContain('Drama')
-    expect(wrapper.vm.selected).toBe('Comedy')
+    expect(wrapper.vm.modelValue).toBe('Comedy')
   })
 
   it('should update selected value when an item is clicked', async () => {
-    const wrapper = mount(OptionSwitcher, {
+    const wrapper: VueWrapper<OptionSwitcherInstance> = mount(OptionSwitcher, {
       props: {
         items: [{ name: 'Criminal' }, { name: 'Cartoon' }],
         modelValue: 'Cartoon',
@@ -26,6 +35,6 @@ describe('OptionSwitcher', () => {
 
     await wrapper.find('input[value="Criminal"]').setValue('Criminal')
 
-    expect(wrapper.vm.selected).toBe('Criminal')
+    expect(wrapper.vm.modelValue).toBe('Criminal')
   })
 })

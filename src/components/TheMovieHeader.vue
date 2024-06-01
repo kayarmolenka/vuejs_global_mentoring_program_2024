@@ -4,7 +4,7 @@ import MovieCardDetails from '@/components/MovieCardDetails.vue'
 </script>
 
 <template>
-  <header>
+  <header data-testid="movie-header">
     <LogoLink />
     <MovieCardDetails />
   </header>
