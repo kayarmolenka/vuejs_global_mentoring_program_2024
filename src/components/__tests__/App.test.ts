@@ -69,9 +69,9 @@ describe('App', () => {
   })
 
   it('should return movies searched by genre', async () => {
-    const pin = createTestingPinia({ createSpy: vi.fn })
+    const p = createTestingPinia({ createSpy: vi.fn })
 
-    const store = useMoviesStore(pin)
+    const store = useMoviesStore(p)
     store.loading = false
     store.movies = mockDate.slice(0, 3)
     store.fetchMovies = vi.fn()
@@ -82,7 +82,7 @@ describe('App', () => {
     const wrapper = mount(App, {
       global: {
         mocks: { $route: mockRoute, $router: mockRouter },
-        plugins: [pin],
+        plugins: [p],
         stubs: {
           'router-view': HomePage
         }
@@ -105,5 +105,78 @@ describe('App', () => {
     expect(genreInput.element.checked).toBe(true)
     expect(store.searchBy).toBe('Genre')
     expect(wrapper.text()).not.toContain('The Godfather')
+  })
+
+  it('should return empty array when searched by unknown genre', async () => {
+    const pin = createTestingPinia({ createSpy: vi.fn })
+
+    const store = useMoviesStore(pin)
+    store.loading = false
+    store.movies = mockDate.slice(0, 3)
+    store.fetchMovies = vi.fn()
+    store.setSearchBy = vi.fn((newValue) => {
+      store.searchBy = newValue
+    })
+    store.setSearchTerm = vi.fn((newValue) => {
+      store.searchTerm = newValue
+    })
+
+    const wrapper = mount(App, {
+      global: {
+        mocks: { $route: mockRoute, $router: mockRouter },
+        plugins: [pin],
+        stubs: {
+          'router-view': HomePage
+        }
+      }
+    })
+
+    await wrapper.vm.$nextTick()
+
+    store.setSearchBy('Genre')
+
+    const searchInput = wrapper.find('[data-testid="search-input"]')
+    await searchInput.setValue('unknown genre')
+
+    const searchButton = wrapper.find('[data-testid="search-button"]')
+    await searchButton.trigger('click')
+
+    expect(wrapper.text()).toContain('0 movie found')
+  })
+
+  it('should return searched result when click enter', async () => {
+    const pin = createTestingPinia({ createSpy: vi.fn })
+
+    const store = useMoviesStore(pin)
+    store.loading = false
+    store.movies = mockDate.slice(0, 3)
+    store.fetchMovies = vi.fn()
+    store.setSearchBy = vi.fn((newValue) => {
+      store.searchBy = newValue
+    })
+    store.setSearchTerm = vi.fn((newValue) => {
+      store.searchTerm = newValue
+    })
+
+    const wrapper = mount(App, {
+      global: {
+        mocks: { $route: mockRoute, $router: mockRouter },
+        plugins: [pin],
+        stubs: {
+          'router-view': HomePage
+        }
+      }
+    })
+
+    await wrapper.vm.$nextTick()
+
+    store.setSearchBy('Title')
+
+    const searchInput = wrapper.find('[data-testid="search-input"]')
+    await searchInput.setValue('God')
+
+    await searchInput.trigger('keyup.enter')
+
+    expect(wrapper.text()).toContain('1 movie found')
   })
 })
