@@ -18,7 +18,7 @@ export const useMoviesStore = defineStore('movies', () => {
   const fetchMovies = async () => {
     const { data, fetch } = useApi()
     loading.value = true
-    await fetch('/movies')
+    await fetch('/movies.json')
     if (data) {
       movies.value = data.value
     }
