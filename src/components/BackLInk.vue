@@ -10,7 +10,9 @@ const imageUrl = new URL(props.icon, import.meta.url).href
 </script>
 
 <template>
-  <router-link class="back-link" :to="destination"><img :src="imageUrl" alt="" /></router-link>
+  <router-link data-testid="back-link" class="back-link" :to="destination"
+    ><img :src="imageUrl" alt=""
+  /></router-link>
 </template>
 
 <style scoped>
