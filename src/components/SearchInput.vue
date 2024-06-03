@@ -18,6 +18,7 @@ const handleEnter = () => {
 
 <template>
   <input
+    data-testid="search-input"
     class="search"
     @keyup.enter="handleEnter"
     :value="props.modelValue"

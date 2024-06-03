@@ -6,7 +6,7 @@ defineProps<{
 
 <template>
   <div>
-    <button class="button" @click="$emit('search')">{{ title }}</button>
+    <button data-testid="search-button" class="button" @click="$emit('search')">{{ title }}</button>
   </div>
 </template>
 

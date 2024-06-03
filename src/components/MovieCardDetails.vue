@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useMoviesStore } from '@/store/movies'
 import { ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
 import type { Movie } from '@/components/MovieCard.vue'
 import BackLInk from '@/components/BackLInk.vue'
 import { useRoute } from 'vue-router'
@@ -20,20 +19,11 @@ watch(
   },
   { immediate: true }
 )
-
-const { push } = useRouter()
-const backClick = () => {
-  push('/')
-}
 </script>
 
 <template>
   <div v-if="movie" class="movie-card-details">
-    <BackLInk
-      :destination="{ name: 'Home' }"
-      @backClick="backClick"
-      icon="../assets/images/search.png"
-    />
+    <BackLInk :destination="{ name: 'Home' }" icon="../assets/images/search.png" />
     <div><img :src="src" alt="" /></div>
     <div>
       <div class="title-rating-wrapper">

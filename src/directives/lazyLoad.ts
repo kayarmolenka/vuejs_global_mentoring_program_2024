@@ -1,6 +1,6 @@
 import type { Directive } from 'vue'
 
-const DEFAULT_POSTER = '../assets/images/not_found.jpg'
+export const DEFAULT_POSTER = '../assets/images/not_found.jpg'
 
 export const global_lazyLoad_directive: Directive = {
   mounted(el: HTMLElement) {
