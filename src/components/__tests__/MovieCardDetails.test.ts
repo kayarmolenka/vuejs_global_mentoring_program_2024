@@ -55,7 +55,7 @@ describe('MovieCardDetail', () => {
     const store = useMoviesStore(pin)
     store.loading = false
     store.movies = mockDate.slice(0, 3)
-    store.getMovieById = vi.fn(() => store.movies[0])
+    store.getMovieById = vi.fn(() => store.movies?.[0])
 
     const router = createRouter({
       history: createMemoryHistory(),
@@ -88,7 +88,7 @@ describe('MovieCardDetail', () => {
     const store = useMoviesStore(pin)
     store.loading = false
     store.movies = mockDate.slice(0, 3)
-    store.getMovieById = vi.fn(() => store.movies[0])
+    store.getMovieById = vi.fn(() => store.movies?.[0])
 
     const router = createRouter({
       history: createMemoryHistory(),
@@ -103,15 +103,17 @@ describe('MovieCardDetail', () => {
         plugins: [router, pin]
       }
     })
+    await flushPromises()
+    const backLink = wrapper.find('[data-testid="back-link"]')
 
     expect(wrapper.find('[data-testid="movie-header"]')).toBeDefined()
-    expect(wrapper.find('[data-testid="back-link"]')).toBeDefined()
+    expect(backLink).toBeDefined()
 
     const routerPushSpy = vi.fn(router.push)
 
     router.push = routerPushSpy
 
-    await wrapper.find('[data-testid="back-link"]').trigger('click')
+    await backLink.trigger('click')
 
     expect(routerPushSpy).toHaveBeenCalledWith({ name: 'Home' })
   })

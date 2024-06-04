@@ -13,6 +13,9 @@ const src = ref()
 watch(
   () => route.params.id,
   async (newId) => {
+    if (!movie.value && route.params.id) {
+      await store.fetchMovies()
+    }
     movie.value = store.getMovieById(Number(newId))
     src.value = new URL(movie.value?.posterurl!, import.meta.url).href
     store.setChosenMovieGenre(movie.value?.genres ?? [])
