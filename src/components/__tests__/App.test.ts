@@ -1,19 +1,29 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { DOMWrapper, mount } from '@vue/test-utils'
 import { createTestingPinia } from '@pinia/testing'
 import { useMoviesStore } from '../../store/movies'
 import App from '../../App.vue'
 import HomePage from '@/pages/HomePage.vue'
 import { date as mockDate } from '../../../mockData/data'
-
-const mockRoute = {
-  path: '/home'
-}
-const mockRouter = {
-  push: vi.fn()
-}
+import { createRouter, createMemoryHistory } from 'vue-router'
+import type { Router } from 'vue-router'
 
 describe('App', () => {
+  let router: Router
+
+  beforeEach(() => {
+    router = createRouter({
+      history: createMemoryHistory(),
+      routes: [
+        {
+          path: '/',
+          name: 'Home',
+          component: { template: '<div></div>' }
+        }
+      ]
+    })
+  })
+
   it('should render HomePage at /home and find text', async () => {
     const p = createTestingPinia({ createSpy: vi.fn })
 
@@ -22,10 +32,12 @@ describe('App', () => {
     store.movies = mockDate.slice(0, 3)
     store.fetchMovies = vi.fn()
 
+    await router.push({ name: 'Home', query: { search: '' } })
+    await router.isReady()
+
     const wrapper = mount(App, {
       global: {
-        mocks: { $route: mockRoute, $router: mockRouter },
-        plugins: [p],
+        plugins: [p, router],
         stubs: {
           'router-view': HomePage
         }
@@ -46,10 +58,12 @@ describe('App', () => {
     store.movies = mockDate.slice(0, 3)
     store.fetchMovies = vi.fn()
 
+    await router.push({ name: 'Home', query: { search: '' } })
+    await router.isReady()
+
     const wrapper = mount(App, {
       global: {
-        mocks: { $route: mockRoute, $router: mockRouter },
-        plugins: [pinia],
+        plugins: [pinia, router],
         stubs: {
           'router-view': HomePage
         }
@@ -79,10 +93,12 @@ describe('App', () => {
       store.searchBy = newValue
     })
 
+    await router.push({ name: 'Home', query: { search: '' } })
+    await router.isReady()
+
     const wrapper = mount(App, {
       global: {
-        mocks: { $route: mockRoute, $router: mockRouter },
-        plugins: [p],
+        plugins: [p, router],
         stubs: {
           'router-view': HomePage
         }
@@ -121,10 +137,12 @@ describe('App', () => {
       store.searchTerm = newValue
     })
 
+    await router.push({ name: 'Home', query: { search: '' } })
+    await router.isReady()
+
     const wrapper = mount(App, {
       global: {
-        mocks: { $route: mockRoute, $router: mockRouter },
-        plugins: [pin],
+        plugins: [pin, router],
         stubs: {
           'router-view': HomePage
         }
@@ -158,10 +176,12 @@ describe('App', () => {
       store.searchTerm = newValue
     })
 
+    await router.push({ name: 'Home', query: { search: '' } })
+    await router.isReady()
+
     const wrapper = mount(App, {
       global: {
-        mocks: { $route: mockRoute, $router: mockRouter },
-        plugins: [pin],
+        plugins: [pin, router],
         stubs: {
           'router-view': HomePage
         }
