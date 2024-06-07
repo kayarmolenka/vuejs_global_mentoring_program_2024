@@ -21,8 +21,10 @@
   "dependencies": {
     "axios": "^1.6.8",
     "pinia": "^2.1.7",
+    "vee-validate": "^4.13.1",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.5.0",
@@ -54,6 +56,7 @@
     "jsdom": "^24.0.0",
     "npm-run-all2": "^6.1.2",
     "prettier": "^3.2.5",
+    "sass": "^1.77.4",
     "start-server-and-test": "^2.0.3",
     "storybook": "^8.1.5",
     "typescript": "~5.4.0",
